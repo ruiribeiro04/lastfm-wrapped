@@ -45,10 +45,12 @@ function processQueue(): void {
   }, MIN_REQUEST_INTERVAL);
 }
 
-function rateLimitedFetch(url: string): Promise<Response> {
+const FETCH_TIMEOUT_MS = 20_000;
+
+function rateLimitedFetch(url: string, signal?: AbortSignal): Promise<Response> {
   return new Promise((resolve, reject) => {
     requestQueue.push(() => {
-      fetch(url)
+      fetch(url, { signal })
         .then(resolve)
         .catch(reject);
     });
@@ -76,7 +78,9 @@ async function lastfmFetch(
   const searchParams = new URLSearchParams(allParams);
   const url = `${BASE_URL}?${searchParams.toString()}`;
 
-  const response = await rateLimitedFetch(url);
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  const response = await rateLimitedFetch(url, controller.signal).finally(() => clearTimeout(timeoutId));
   if (!response.ok) {
     throw new Error(`Last.fm API error: ${response.status} ${response.statusText}`);
   }
