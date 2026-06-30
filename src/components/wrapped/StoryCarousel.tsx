@@ -287,7 +287,7 @@ export function StoryCarousel({ data }: { data: WrappedData }) {
       {/* Story Container */}
       <div
         ref={containerRef}
-        className="relative w-full overflow-hidden rounded-3xl"
+        className="relative w-full max-w-[calc(85vh*9/16)] sm:max-w-[calc(min(85vh,780px)*9/16)] mx-auto overflow-hidden rounded-3xl"
         style={{ aspectRatio: "9/16", maxHeight: "min(85vh, 780px)" }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}

@@ -1,0 +1,3 @@
+## 2025-06-30 - Fix Aspect Ratio Overflow on Story Cards
+**Learning:** For elements mimicking phone screens or stories (e.g., 9:16 aspect ratio), using `w-full` combined with `aspect-ratio` can result in vertical overflow on devices where the viewport is taller or wider than the target aspect ratio, causing content to be cut off. Using a responsive `max-width` based on the viewport height (e.g., `max-w-[calc(85vh*9/16)]`) ensures the card scales proportionally without exceeding the screen height.
+**Action:** When building full-screen "story" elements, constrain the width relative to the viewport height `calc(vh * ratio)` to ensure complete visibility on all mobile devices.
