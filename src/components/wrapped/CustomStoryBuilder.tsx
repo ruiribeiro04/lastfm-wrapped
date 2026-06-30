@@ -1302,7 +1302,7 @@ export function CustomStoryBuilder({ data, username }: CustomStoryProps) {
         >
           <div
             ref={canvasRef}
-            className="relative w-[300px] sm:w-[340px] lg:w-[360px] overflow-hidden select-none rounded-xl shadow-2xl shadow-black/50"
+            className="relative w-full max-w-[calc(85vh*9/16)] sm:max-w-[340px] lg:max-w-[360px] overflow-hidden select-none rounded-xl shadow-2xl shadow-black/50"
             style={{
               aspectRatio: "9/16",
               backgroundColor: bgColor,
